@@ -120,7 +120,7 @@ class Blockchain {
      */
     submitStar(address, message, signature, star) {
         let self = this;
-        return new Promise(async (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             const messageTime = parseInt(message.split(':')[MESSAGE_TIME_INDEX]);
             const currentTime = Time.now();
 
@@ -153,13 +153,9 @@ class Blockchain {
      */
     getBlockByHash(hash) {
         let self = this;
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
            const [block] = self.chain.filter(block => block.hash === hash);
-           if (block) {
-               resolve(block);
-           } else {
-               reject("No block with given hash exists");
-           }
+           resolve(block);
         });
     }
 
