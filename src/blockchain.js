@@ -77,7 +77,6 @@ class Blockchain {
                 .then(errorLog => {
                     if (errorLog.length > 0) {
                         self.chain.pop();
-                        console.log(errorLog);
                         reject(errorLog);
                     } else {
                         resolve(block);
@@ -128,14 +127,12 @@ class Blockchain {
             if (currentTime - messageTime < 5 * 60) {
                 let verified =  bitcoinMessage.verify(message, address, signature);
                 if (verified) {
-                    const block = new Block(
-                        {
-                            owner: address,
-                            message,
-                            signature,
-                            star
-                        }
-                    );
+                    const block = new Block({
+                        owner: address,
+                        message,
+                        signature,
+                        star
+                    });
                     self._addBlock(block)
                         .then(block => resolve(block))
                         .catch(error => reject(error));
